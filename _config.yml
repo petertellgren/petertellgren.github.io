@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://petertellgren.github.io
+title: Peter Tellgren
+subtitle: My blog about ruby thigs.
+author: Peter Tellgren
 simple_search: http://google.com/search
 description:
 
@@ -69,7 +69,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: petertellgren
 twitter_tweet_button: true
 
 # Google +1
