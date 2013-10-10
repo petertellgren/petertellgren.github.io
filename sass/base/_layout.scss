@@ -1,9 +1,9 @@
 $min-width: 895px;
 $logo-height: 110px;
 $logo-width: 110px;
-$logo-radius: 10px;
-$logo-inner-height: 90px;
-$logo-inner-width: 90px;
+$logo-radius: 0px;
+$logo-inner-height: 110px;
+$logo-inner-width: 110px;
 $logo-inner-radius: 50%;
 
 body {
@@ -41,17 +41,17 @@ aside#logo div {
   height: $logo-inner-height;
   text-indent: -9999px;
   margin: 0 auto;
-  margin-top: 10px;
+  //margin-top: 10px;
   clear: both;
 }
 
 aside#logo div a {
   display: block;
   clear: both;
-  width: 78px;
-  height: 78px;
+  width: 110px;
+  height: 110px;
   margin: 0 auto;
-  margin-top: 6px;
+  //margin-top: 6px;
 }
 
 ul#menu {

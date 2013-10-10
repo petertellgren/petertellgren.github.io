@@ -4,9 +4,9 @@
 
 url: http://petertellgren.github.io
 title: Peter Tellgren
-subtitle: My blog about ruby thigs.
+subtitle: a blog about many things
 author: Peter Tellgren
-simple_search: http://google.com/search
+simple_search:
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
