@@ -1,129 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Peter Tellgren</title>
-  <meta name="author" content="Peter Tellgren">
-
-  
-  <meta name="description" content="Tweet Adding Dynamic View Paths to ActionMailer in Rails 2.3.11 Oct 13th, 2011 When I recently rewrote our app at work into a multi tenant app I ran &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://petertellgren.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Peter Tellgren" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body >
-  <header role="banner" id="sidebar">
-    <!-- Logo -->
-<aside id="logo" class="clearfix">
-  <div class="clearfix">
-    <a href="/">Peter Tellgren</a>
-  </div>
-</aside>
-
-<ul id="menu">
-
-  <li class="title">
-    <h1 id="title"><a href="/">Peter Tellgren</a></h1>
-  </li>
-
-
-  <li class="subtitle">
-    <h2 id="subtitle">My blog about ruby thigs.</h2>
-  </li>
-
-  <li class="link">
-    <a href="/about/">about</a>
-  </li>
-
-  <li class="link">
-    <a href="http://twitter.com/petertellgren/">twitter</a>
-  </li>
-
-
-  <li class="link rss">
-    <a href="/atom.xml">rss feed</a>
-  </li>
-</ul>
-
-<!-- Octopress Love -->
-<aside id="octopress_linkback">
-  <a href="http://octopress.org/">
-    <span class="unicode_square">
-      <span class="unicode_circle">
-        &nbsp;
-      </span>
-    </span>
-    <span class="octopress">Powered by Octopress</span>
-  </a>
-</aside>
-
-  </header>
-  <section id="main">
-      
-  
-  
-    <article class="post">
-      <div class="sharing-box">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://petertellgren.github.io/index.html" data-via="petertellgren" data-counturl="http://petertellgren.github.io/index.html" data-size="large">Tweet</a>
-  
-  
-  
-</div>
-
-      
-  <header>
+  <title><![CDATA[Peter Tellgren]]></title>
+  <link href="http://petertellgren.github.io/atom.xml" rel="self"/>
+  <link href="http://petertellgren.github.io/"/>
+  <updated>2013-10-10T23:55:55+03:00</updated>
+  <id>http://petertellgren.github.io/</id>
+  <author>
+    <name><![CDATA[Peter Tellgren]]></name>
     
-      <h2 class="entry-title">
-        
-        <a href="/blog/2011/10/13/adding-dynamic-view-paths-to-actionmailer-in-rails-2-dot-3-11/">Adding Dynamic View Paths to ActionMailer in Rails 2.3.11</a>
-        
-      </h2>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2011-10-13T10:05:00+03:00" pubdate data-updated="true">Oct 13<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <p>When I recently rewrote our app at work into a multi tenant app I ran in to the problem of the action_mailer views. Since the app started out it’s life as a single tenant app most of the mails had to be changed but also had to remain the same for the app still there</p>
+  <entry>
+    <title type="html"><![CDATA[Adding Dynamic View Paths to ActionMailer in Rails 2.3.11]]></title>
+    <link href="http://petertellgren.github.io/blog/2011/10/13/adding-dynamic-view-paths-to-actionmailer-in-rails-2-dot-3-11/"/>
+    <updated>2011-10-13T10:05:00+03:00</updated>
+    <id>http://petertellgren.github.io/blog/2011/10/13/adding-dynamic-view-paths-to-actionmailer-in-rails-2-dot-3-11</id>
+    <content type="html"><![CDATA[<p>When I recently rewrote our app at work into a multi tenant app I ran in to the problem of the action_mailer views. Since the app started out it’s life as a single tenant app most of the mails had to be changed but also had to remain the same for the app still there</p>
 
 <p>My first idea was to just configure the template_root of ActionMailer in my new Environment but just after this was done the requirement came that each tenant might want to customize these views. so instead of changing the template_root depending on the tenant I googled around and found a solution for adding the nice view_path method we already have for the ActionController.</p>
 
@@ -196,54 +91,15 @@
 
 
 <p></p>
-
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article class="post">
-      <div class="sharing-box">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://petertellgren.github.io/index.html" data-via="petertellgren" data-counturl="http://petertellgren.github.io/index.html" data-size="large">Tweet</a>
-  
-  
-  
-</div>
-
-      
-  <header>
-    
-      <h2 class="entry-title">
-        
-        <a href="/blog/2011/03/24/trouble-with-imagemagick-on-a-vps/">Trouble With ImageMagick on a VPS</a>
-        
-      </h2>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-24T17:45:00+02:00" pubdate data-updated="true">Mar 24<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <p>This week I was adding a galleries to a rails site that I am working on and for some reason on my production server, each time I tried to upload an image it failed and I got returned a 502 response from my server. The thing was that even though I was looking at my logs I saw no request even being made to the server. I finally got an image to upload and could see in my logs that the action took in excess of one minute to complete which led my Rails worker (unicorn) to time out and return the aforementioned 502 error response. As I went through the call stack I could determine that the bottleneck was ImageMagick and especially the calls to the convert method.</p>
+  <entry>
+    <title type="html"><![CDATA[Trouble With ImageMagick on a VPS]]></title>
+    <link href="http://petertellgren.github.io/blog/2011/03/24/trouble-with-imagemagick-on-a-vps/"/>
+    <updated>2011-03-24T17:45:00+02:00</updated>
+    <id>http://petertellgren.github.io/blog/2011/03/24/trouble-with-imagemagick-on-a-vps</id>
+    <content type="html"><![CDATA[<p>This week I was adding a galleries to a rails site that I am working on and for some reason on my production server, each time I tried to upload an image it failed and I got returned a 502 response from my server. The thing was that even though I was looking at my logs I saw no request even being made to the server. I finally got an image to upload and could see in my logs that the action took in excess of one minute to complete which led my Rails worker (unicorn) to time out and return the aforementioned 502 error response. As I went through the call stack I could determine that the bottleneck was ImageMagick and especially the calls to the convert method.</p>
 
 <p>I did some testing and could confirm what I had determined in the logs:</p>
 
@@ -325,40 +181,7 @@
 
 
 <p>So there we are, my gallery is now up and running and preforming as should.</p>
-
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-
-    <nav role="navigation" id="pagination">
-
-</nav>
-  </section>
-  
-
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-</body>
-</html>
+</feed>

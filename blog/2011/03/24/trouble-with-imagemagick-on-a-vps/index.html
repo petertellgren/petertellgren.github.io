@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Trouble With ImageMagick on a VPS - Peter Tellgren</title>
+  <meta name="author" content="Peter Tellgren">
+
+  
+  <meta name="description" content="Tweet Trouble With ImageMagick on a VPS Mar 24th, 2011 This week I was adding a galleries to a rails site that I am working on and for some reason &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://petertellgren.github.io/blog/2011/03/24/trouble-with-imagemagick-on-a-vps/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Peter Tellgren" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body >
+  <header role="banner" id="sidebar">
+    <!-- Logo -->
+<aside id="logo" class="clearfix">
+  <div class="clearfix">
+    <a href="/">Peter Tellgren</a>
+  </div>
+</aside>
+
+<ul id="menu">
+
+  <li class="title">
+    <h1 id="title"><a href="/">Peter Tellgren</a></h1>
+  </li>
+
+
+  <li class="subtitle">
+    <h2 id="subtitle">My blog about ruby thigs.</h2>
+  </li>
+
+  <li class="link">
+    <a href="/about/">about</a>
+  </li>
+
+  <li class="link">
+    <a href="http://twitter.com/petertellgren/">twitter</a>
+  </li>
+
+
+  <li class="link rss">
+    <a href="/atom.xml">rss feed</a>
+  </li>
+</ul>
+
+<!-- Octopress Love -->
+<aside id="octopress_linkback">
+  <a href="http://octopress.org/">
+    <span class="unicode_square">
+      <span class="unicode_circle">
+        &nbsp;
+      </span>
+    </span>
+    <span class="octopress">Powered by Octopress</span>
+  </a>
+</aside>
+
+  </header>
+  <section id="main">
+    <article class="post">
+  <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://petertellgren.github.io/blog/2011/03/24/trouble-with-imagemagick-on-a-vps/" data-via="petertellgren" data-counturl="http://petertellgren.github.io/blog/2011/03/24/trouble-with-imagemagick-on-a-vps/" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
+  
+  <header>
+    
+      <h2 class="entry-title">Trouble With ImageMagick on a VPS</h2>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-24T17:45:00+02:00" pubdate data-updated="true">Mar 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<p>This week I was adding a galleries to a rails site that I am working on and for some reason on my production server, each time I tried to upload an image it failed and I got returned a 502 response from my server. The thing was that even though I was looking at my logs I saw no request even being made to the server. I finally got an image to upload and could see in my logs that the action took in excess of one minute to complete which led my Rails worker (unicorn) to time out and return the aforementioned 502 error response. As I went through the call stack I could determine that the bottleneck was ImageMagick and especially the calls to the convert method.</p>
+
+<p>I did some testing and could confirm what I had determined in the logs:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ time utilities/convert 'image.jpg' -resize "x60" -crop "60x60" +repage 'thumb'
+</span><span class='line'>real    0m11.602s
+</span><span class='line'>user    0m11.414s
+</span><span class='line'>sys     0m0.069s</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>11 seconds to scale and crop an image, that’s just insanly slow!!!</strong></p>
+
+<p>I did some googleing and found rumors that openmp, that is activated by default in ImageMagick and helps to make use of modern CPUs multi core architecture sometimes could cause issues in a virtualized environment wich is exactly what I am running on.</p>
+
+<p>So I went out and got the latest version of the ImageMagick source, compiled it with the —disable-openmp flag and redid the test with this binary:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ time utilities/convert 'image.jpg' -resize "x60" -crop "60x60" +repage 'thumb'
+</span><span class='line'>real    0m0.077s
+</span><span class='line'>user    0m0.058s
+</span><span class='line'>sys     0m0.019s</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That’s more like it, don’t you agree. All I know had to do was to install this version on to my server. However as I am running Ubuntu 10.04 so I’d like to keep with the package system. For some reason I was not able to get the 10.04 package of ImageMagick to accept the —disable-openmp flag so, in the end I backported the package from Ubuntu 10.10 instead. please find the steps below:</p>
+
+<h3>1. Download the following files:</h3>
+
+<ul>
+<li><a href="http://archive.ubuntu.com/ubuntu/pool/main/i/imagemagick/imagemagick_6.6.2.6-1ubuntu1.1.dsc">imagemagick_6.6.2.6-1ubuntu1.1.dsc</a></li>
+<li><a href="http://archive.ubuntu.com/ubuntu/pool/main/i/imagemagick/imagemagick_6.6.2.6.orig.tar.bz2">imagemagick_6.6.2.6.orig.tar.bz2</a></li>
+<li><a href="http://archive.ubuntu.com/ubuntu/pool/main/i/imagemagick/imagemagick_6.6.2.6-1ubuntu1.1.debian.tar.bz2">imagemagick_6.6.2.6-1ubuntu1.1.debian.tar.bz2</a></li>
+</ul>
+
+
+<h3>2. Unpack</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dpkg-source -x imagemagick_6.6.2.6-1ubuntu1.1.dsc</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3. Edit the build rules</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd imagemagick-6.6.2.6
+</span><span class='line'>$ vim debian/rules</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add the the following line to the ./configure statement on line 25-39. I added mine on line 34.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>34: —disable-openmp \</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4. Add dependencies and build ( I needed these dependencies)</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install liblqr-1-0-dev librsvg2-dev
+</span><span class='line'>$ dpkg-buildpackage -b</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5. Out with the old, in with the new</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get remove —purge imagemagick
+</span><span class='line'>$ sudo dpkg -i libmagickcore3_6.6.2.6-1ubuntu1.1_amd64.deb
+</span><span class='line'>$ sudo dpkg -i libmagickwand3_6.6.2.6-1ubuntu1.1_amd64.deb
+</span><span class='line'>$ sudo dpkg -i imagemagick_6.6.2.6-1ubuntu1.1_amd64.deb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So there we are, my gallery is now up and running and preforming as should.</p>
+
+
+
+</article>
+
+
+    <nav role="navigation" id="pagination">
+
+</nav>
+  </section>
+  
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | Peter Tellgren]]></title>
+  <link href="http://petertellgren.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://petertellgren.github.io/"/>
+  <updated>2013-10-10T23:55:55+03:00</updated>
+  <id>http://petertellgren.github.io/</id>
+  <author>
+    <name><![CDATA[Peter Tellgren]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Adding Dynamic View Paths to ActionMailer in Rails 2.3.11]]></title>
+    <link href="http://petertellgren.github.io/blog/2011/10/13/adding-dynamic-view-paths-to-actionmailer-in-rails-2-dot-3-11/"/>
+    <updated>2011-10-13T10:05:00+03:00</updated>
+    <id>http://petertellgren.github.io/blog/2011/10/13/adding-dynamic-view-paths-to-actionmailer-in-rails-2-dot-3-11</id>
+    <content type="html"><![CDATA[<p>When I recently rewrote our app at work into a multi tenant app I ran in to the problem of the action_mailer views. Since the app started out it’s life as a single tenant app most of the mails had to be changed but also had to remain the same for the app still there</p>
+
+<p>My first idea was to just configure the template_root of ActionMailer in my new Environment but just after this was done the requirement came that each tenant might want to customize these views. so instead of changing the template_root depending on the tenant I googled around and found a solution for adding the nice view_path method we already have for the ActionController.</p>
+
+<p>The original post can be found <a href="http://www.quirkey.com/blog/2008/08/28/actionmailer-hacking-multiple-template-paths/">here</a> but I thought I would show my implementation below. Basically a compilation of the original poster and the comments given to that post</p>
+
+<p>```ruby
+module ActionMailer
+  class Base</p>
+
+<pre><code>class_inheritable_accessor :view_paths
+
+def self.prepend_view_path(path)
+  view_paths.unshift(*path)
+end
+
+def self.append_view_path(path)
+  view_paths.push(*path)
+end
+
+def view_paths
+  self.class.view_paths
+end
+
+private
+
+def self.view_paths
+  @@view_paths ||= ActionController::Base.view_paths
+end
+
+def initialize_template_class_without_helpers(assigns)
+  ActionView::Base.new(view_paths, assigns, self)
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>I made sure that my lib directory was included in my load paths and then I could mange the view paths as follows</p>
+
+<p><code>ruby
+ActionMailer::Base.prepend_view_path(RAILS_ROOT + '/app/views/...')
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

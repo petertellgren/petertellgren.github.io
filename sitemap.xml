@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>
+            http://petertellgren.github.io/blog/2011/03/24/trouble-with-imagemagick-on-a-vps/
+        </loc>
+        <lastmod>2013-10-10T23:13:17+03:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://petertellgren.github.io/blog/2011/10/13/adding-dynamic-view-paths-to-actionmailer-in-rails-2-dot-3-11/
+        </loc>
+        <lastmod>2013-10-10T23:13:17+03:00</lastmod>
+    </url>
+    <url>
+        <loc>http://petertellgren.github.io/about/</loc>
+        <lastmod>2013-10-10T23:54:06+03:00</lastmod>
+    </url>
+    <url>
+        <loc>http://petertellgren.github.io/blog/archives/</loc>
+        <lastmod>2013-10-10T23:13:17+03:00</lastmod>
+    </url>
+    <url>
+        <loc>http://petertellgren.github.io/</loc>
+        <lastmod>2013-10-10T23:13:17+03:00</lastmod>
+    </url>
+</urlset>
