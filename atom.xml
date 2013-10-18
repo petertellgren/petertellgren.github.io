@@ -4,7 +4,7 @@
   <title><![CDATA[Peter Tellgren]]></title>
   <link href="http://petertellgren.github.io/atom.xml" rel="self"/>
   <link href="http://petertellgren.github.io/"/>
-  <updated>2013-10-18T11:58:35+03:00</updated>
+  <updated>2013-10-18T14:05:24+03:00</updated>
   <id>http://petertellgren.github.io/</id>
   <author>
     <name><![CDATA[Peter Tellgren]]></name>
@@ -18,7 +18,7 @@
     <link href="http://petertellgren.github.io/blog/2013/10/17/lanugage-switching-with-dynamicly-generated-i18n-urls/"/>
     <updated>2013-10-17T22:49:00+03:00</updated>
     <id>http://petertellgren.github.io/blog/2013/10/17/lanugage-switching-with-dynamicly-generated-i18n-urls</id>
-    <content type="html"><![CDATA[<p>A while back I ran in to a problem of a client who decided they needed translated routes for SEO resasons. In general this is not too big of a problem and there are great gems and out there to help you.</p>
+    <content type="html"><![CDATA[<p>A while back I ran in to a problem of a client who decided they needed translated routes for SEO resasons. In general this is not too big of a problem and there are great gems available to help you.</p>
 
 <p>For instance I used <a href="https://github.com/raul/translate_routes">translate_routes</a> which will help to translate the &ldquo;model&rdquo; part of your routes. e.g:</p>
 
@@ -77,7 +77,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This will work but not that you will have multiple URLs to same content which I&rsquo;ve been told is aparantly is not the best idea from an SEO standpoint. Please don&rsquo;t quote me on this though. Regardless this was not allowed in the project I was working on.</p>
+<p>This will work but not that you will have multiple URLs to same content which I&rsquo;ve been told is apparently not the best idea from an SEO standpoint. Please don&rsquo;t quote me on this though. Regardless this was not allowed in the project I was working on.</p>
 
 <h2>Option 2: Translation logic on request.</h2>
 
