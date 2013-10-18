@@ -6,7 +6,7 @@ comments: true
 categories:
 ---
 
-A while back I ran in to a problem of a client who decided they needed translated routes for SEO resasons. In general this is not too big of a problem and there are great gems and out there to help you.
+A while back I ran in to a problem of a client who decided they needed translated routes for SEO resasons. In general this is not too big of a problem and there are great gems available to help you.
 
 For instance I used [translate_routes](https://github.com/raul/translate_routes) which will help to translate the "model" part of your routes. e.g:
 
@@ -45,7 +45,7 @@ end
 # /livres/340-crime-and-punishment
 ```
 
-This will work but not that you will have multiple URLs to same content which I've been told is aparantly is not the best idea from an SEO standpoint. Please don't quote me on this though. Regardless this was not allowed in the project I was working on.
+This will work but not that you will have multiple URLs to same content which I've been told is apparently not the best idea from an SEO standpoint. Please don't quote me on this though. Regardless this was not allowed in the project I was working on.
 
 ## Option 2: Translation logic on request.
 
